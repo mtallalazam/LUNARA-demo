@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LUNARA Demo
+
+This is a demo project. Demo is available at this link <https://splendorous-profiterole-dda344.netlify.app>
 
 ## Getting Started
 
