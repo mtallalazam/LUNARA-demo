@@ -3,7 +3,25 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-import { ConfigProvider, Typography, Tooltip, Button, Dropdown, message, Col, Row, Card, Space, Statistic, List, Progress, Segmented, Badge } from "antd";
+import {
+	ConfigProvider,
+	Typography,
+	Tooltip,
+	Button,
+	Dropdown,
+	message,
+	Col,
+	Row,
+	Card,
+	Space,
+	Statistic,
+	List,
+	Progress,
+	Segmented,
+	Badge,
+	Tag,
+	Divider,
+} from "antd";
 import type { MenuProps } from "antd";
 
 import RefreshIcon from "../components/Icons/Refresh.icon";
@@ -13,40 +31,59 @@ import ArrowLeftIcon from "../components/Icons/ArrowLeft.icon";
 import ArrowRightIcon from "../components/Icons/ArrowRight.icon";
 import ArrowRightUpIcon from "../components/Icons/ArrowRightUp.icon";
 import ArrowLeftDownIcon from "../components/Icons/ArrowLeftDown.icon";
+import PaperPlaneIcon from "../components/Icons/PaperPlane.icon";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+
+const IconLookup = {
+	Transfer: <ArrowRightIcon style={{ marginRight: "0.3rem" }} />,
+	Received: <ArrowLeftIcon style={{ marginRight: "0.3rem" }} />,
+	Wire: <PaperPlaneIcon style={{ marginRight: "0.3rem" }} />,
+};
 
 const accountActivityData = [
 	{
 		title: "Jameson Accounting",
-		description: "Tranfser - Ops/Payroll",
 		amount: 5000.24,
-		status: "pending",
+		status: "Pending",
+		operationType: "Transfer",
+		type: "Ops/Payroll",
+		currency: "PKR",
 	},
 	{
 		title: "Lily's Eatery",
-		description: "Tranfser - Savings **6785",
 		amount: 65400.5,
+		operationType: "Transfer",
+		type: "Savings **6785",
+		currency: "PKR",
 	},
 	{
 		title: "The Plant Organic Cafe",
-		description: "Received - Credit account",
 		amount: 50233.01,
+		operationType: "Received",
+		type: "Credit account",
+		currency: "PKR",
 	},
 	{
 		title: "Monarch Books",
-		description: "Transfer - Ops/Payroll",
 		amount: 10345.24,
+		operationType: "Transfer",
+		type: "Ops/Payroll",
+		currency: "PKR",
 	},
 	{
 		title: "Aliyah McMahon",
-		description: "Wire - Checking",
 		amount: 12904.85,
+		operationType: "Wire",
+		type: "Checking",
+		currency: "PKR",
 	},
 	{
 		title: "Aliyah McMahon",
-		description: "Received - Credit account",
 		amount: 53405.24,
+		operationType: "Received",
+		type: "Credit account",
+		currency: "PKR",
 	},
 ];
 
@@ -254,117 +291,148 @@ const Home: NextPage = () => {
 								style={{ display: "flex" }}
 							>
 								<Card>
-									<Typography.Text>Graph component</Typography.Text>
+									<Typography.Text>Line Chart component</Typography.Text>
 								</Card>
 
 								<Card>
-									<Row gutter={16}>
-										<Col span={12}>
-											<Statistic
-												title={
-													<ConfigProvider
-														theme={{
-															token: {
-																colorText: "#A2A2A2",
-															},
-														}}
-													>
-														<Typography.Text>
-															<ArrowLeftIcon />
-															Money In
-														</Typography.Text>
-													</ConfigProvider>
-												}
-												value={"516, 789"}
-												prefix={<Typography.Text>PKR</Typography.Text>}
-												suffix={<Typography.Text>.00</Typography.Text>}
-											/>
-											<ConfigProvider
-												theme={{
-													token: {
-														colorText: "#A2A2A2",
-														fontSize: 12,
-													},
-												}}
+									<section style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+										<section>
+											<Space
+												direction="vertical"
+												size={16}
 											>
-												<Typography.Text>
-													<span
-														style={{
-															fontSize: 14,
-															color: "#FF5448",
-															backgroundColor: "#302220",
-															padding: "3px 8px",
-															borderRadius: 8,
-															lineHeight: "21px",
-															marginRight: 10,
-														}}
-													>
-														<ArrowLeftDownIcon />
-														1.25%
-													</span>
-													{menuItems[filter]?.label}
-												</Typography.Text>
-											</ConfigProvider>
-										</Col>
+												<ConfigProvider
+													theme={{
+														token: {
+															colorText: "#A2A2A2",
+															fontSize: 16,
+														},
+													}}
+												>
+													<Typography.Text style={{ display: "flex", alignItems: "center" }}>
+														<ArrowLeftIcon style={{ marginRight: "0.6rem" }} />
+														Money In
+													</Typography.Text>
+												</ConfigProvider>
 
-										<Col span={12}>
-											<Statistic
-												title={
-													<ConfigProvider
-														theme={{
-															token: {
-																colorText: "#A2A2A2",
-															},
-														}}
-													>
-														<Typography.Text>
-															<ArrowRightIcon />
-															Money Out
-														</Typography.Text>
-													</ConfigProvider>
-												}
-												value={"-312, 361"}
-												prefix={<Typography.Text>PKR</Typography.Text>}
-												suffix={<Typography.Text>.00</Typography.Text>}
-											/>
-											<ConfigProvider
-												theme={{
-													token: {
-														colorText: "#A2A2A2",
-														fontSize: 12,
-													},
-												}}
+												<h3 style={{ display: "flex", alignItems: "center", color: "#F8F8F8", fontWeight: 400 }}>
+													<sup style={{ fontSize: 14 }}>PKR</sup>
+													<span style={{ fontSize: "2.3rem", margin: "0 3px" }}>{516789}</span>
+													<sup style={{ fontSize: 14 }}>.00</sup>
+												</h3>
+
+												<ConfigProvider
+													theme={{
+														token: {
+															colorText: "#A2A2A2",
+															fontSize: 12,
+														},
+													}}
+												>
+													<Typography.Text>
+														<span
+															style={{
+																fontSize: 14,
+																color: "#FF5448",
+																backgroundColor: "#302220",
+																padding: "3px 8px",
+																borderRadius: 8,
+																lineHeight: "21px",
+																marginRight: 10,
+															}}
+														>
+															<ArrowLeftDownIcon />
+															1.25%
+														</span>
+														{menuItems[filter]?.label}
+													</Typography.Text>
+												</ConfigProvider>
+											</Space>
+										</section>
+
+										<ConfigProvider
+											theme={{
+												token: {
+													colorSplit: "#252525",
+													fontSize: 38,
+												},
+											}}
+										>
+											<Divider type="vertical" />
+										</ConfigProvider>
+
+										<section>
+											<Space
+												direction="vertical"
+												size={16}
 											>
-												<Typography.Text>
-													<span
-														style={{
-															fontSize: 14,
-															color: "#88FF9B",
-															backgroundColor: "#253028",
-															padding: "3px 8px",
-															borderRadius: 8,
-															lineHeight: "21px",
-															marginRight: 10,
-														}}
-													>
-														<ArrowRightUpIcon />
-														2.30%
-													</span>
-													{menuItems[filter]?.label}
-												</Typography.Text>
-											</ConfigProvider>
-										</Col>
-									</Row>
+												<ConfigProvider
+													theme={{
+														token: {
+															colorText: "#A2A2A2",
+															fontSize: 16,
+														},
+													}}
+												>
+													<Typography.Text style={{ display: "flex", alignItems: "center" }}>
+														<ArrowRightIcon style={{ marginRight: "0.6rem" }} />
+														Money Out
+													</Typography.Text>
+												</ConfigProvider>
+
+												<h3 style={{ display: "flex", alignItems: "center", color: "#F8F8F8", fontWeight: 400 }}>
+													<sup style={{ fontSize: 14 }}>PKR</sup>
+													<span style={{ fontSize: "2.3rem", margin: "0 3px" }}>{-312361}</span>
+													<sup style={{ fontSize: 14 }}>.00</sup>
+												</h3>
+
+												<ConfigProvider
+													theme={{
+														token: {
+															colorText: "#A2A2A2",
+															fontSize: 12,
+														},
+													}}
+												>
+													<Typography.Text>
+														<span
+															style={{
+																fontSize: 14,
+																color: "#88FF9B",
+																backgroundColor: "#253028",
+																padding: "3px 8px",
+																borderRadius: 8,
+																lineHeight: "21px",
+																marginRight: 10,
+															}}
+														>
+															<ArrowRightUpIcon />
+															2.30%
+														</span>
+														{menuItems[filter]?.label}
+													</Typography.Text>
+												</ConfigProvider>
+											</Space>
+										</section>
+									</section>
 								</Card>
 							</Space>
 						</Col>
 
 						<Col span={9}>
 							<Card style={{ height: "100%" }}>
-								<Typography.Title level={4}>Account Activity</Typography.Title>
+								<Typography.Title
+									level={4}
+									style={{
+										marginBottom: 3,
+									}}
+								>
+									Account Activity
+								</Typography.Title>
+
 								<Space
 									direction="vertical"
-									size={24}
+									size={20}
 									style={{ display: "flex", justifyContent: "center" }}
 								>
 									<ConfigProvider
@@ -391,28 +459,77 @@ const Home: NextPage = () => {
 												<List.Item style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
 													<List.Item.Meta
 														title={item.title}
-														description={item.description}
-													/>
-													<ConfigProvider
-														theme={{
-															token: {
-																fontSize: 18,
-															},
-														}}
-													>
-														<Typography.Text>
-															<sup
+														description={
+															<div
 																style={{
-																	top: "-5px",
-																	fontSize: "10px",
-																	marginRight: "2px",
+																	display: "flex",
+																	alignItems: "center",
 																}}
 															>
-																PKR
-															</sup>
-															{item.amount}
-														</Typography.Text>
-													</ConfigProvider>
+																{IconLookup[item.operationType]} {`${item.operationType} - ${item.type}`}
+															</div>
+														}
+													/>
+													<section
+														style={{
+															display: "flex",
+															flexDirection: "column",
+															justifyContent: "flex-end",
+														}}
+													>
+														<ConfigProvider
+															theme={{
+																token: {
+																	fontSize: 18,
+																	colorText: item.operationType === "Received" ? "#88FF9B" : "#F8F8F8",
+																},
+															}}
+														>
+															<Typography.Text>
+																<sup
+																	style={{
+																		top: "-5px",
+																		fontSize: "10px",
+																		marginRight: "2px",
+																	}}
+																>
+																	{item.currency}
+																</sup>
+																{item.amount}
+															</Typography.Text>
+														</ConfigProvider>
+														{item.status && (
+															<ConfigProvider
+																theme={{
+																	token: {
+																		colorBorder: "none",
+																		colorFillQuaternary: "#2A2A2A",
+																	},
+																}}
+															>
+																<Tag
+																	style={{
+																		padding: "1px 8px 3px",
+																		marginInlineEnd: 0,
+																		display: "flex",
+																		alignItems: "center",
+																		justifyContent: "center",
+																	}}
+																>
+																	<Badge
+																		dot
+																		color="yellow"
+																		style={{
+																			marginRight: "0.5rem",
+																		}}
+																		offset={[0, -2]}
+																	/>
+																	{item.status}
+																</Tag>
+															</ConfigProvider>
+														)}
+													</section>
+
 													<ConfigProvider
 														theme={{
 															token: {
@@ -462,15 +579,17 @@ const Home: NextPage = () => {
 											<Typography.Text
 												style={{
 													fontWeight: 700,
-													marginRight: "1rem",
+													display: "flex",
+													alignItems: "center",
 												}}
 											>
 												View All
+												<ChevronRightIcon
+													width={9}
+													height={10}
+													style={{ marginLeft: "0.5rem" }}
+												/>
 											</Typography.Text>
-											<ChevronRightIcon
-												width={9}
-												height={10}
-											/>
 										</a>
 									</section>
 								</Space>
@@ -699,15 +818,17 @@ const Home: NextPage = () => {
 											<Typography.Text
 												style={{
 													fontWeight: 700,
-													marginRight: "1rem",
+													display: "flex",
+													alignItems: "center",
 												}}
 											>
 												View All
+												<ChevronRightIcon
+													width={9}
+													height={10}
+													style={{ marginLeft: "0.5rem" }}
+												/>
 											</Typography.Text>
-											<ChevronRightIcon
-												width={9}
-												height={10}
-											/>
 										</a>
 									</section>
 								</Space>

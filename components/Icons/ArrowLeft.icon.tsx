@@ -11,19 +11,19 @@ const ArrowLeftSvg = () => (
 	>
 		<path
 			d="M3.33334 8H12.6667"
-			stroke="#A2A2A2"
+			stroke="currentColor"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
 		<path
 			d="M6.66668 11.3333L3.33334 8"
-			stroke="#A2A2A2"
+			stroke="currentColor"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
 		<path
 			d="M6.66668 4.66667L3.33334 8"
-			stroke="#A2A2A2"
+			stroke="currentColor"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
